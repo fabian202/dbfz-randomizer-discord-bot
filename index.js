@@ -2,6 +2,7 @@ require('dotenv').config() //initialize dotenv
 
 // const client = new Discord.Client(); //create new client
 const { Client, Intents } = require('discord.js')
+const _ = require('lodash')
 // Create a new client instance
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -60,10 +61,21 @@ client.on('ready', () => {
 client.on('messageCreate', (msg) => {
   if (msg.content === '!team') {
     const shuffled = getShuffledArr(characters)
+    const result = []
+    //msg.channel.send('![Discord Logo](https://discord.com/assets/fc0b01fe10a0b8c602fb0106d8189d9b.png =200x100)')
     for (let index = 0; index < 6; index++) {
-      msg.channel.send(`https://dba.bn-ent.net/character/images/select_${shuffled[index]}_off.png`)
-      if (index === 2) msg.channel.send('VS')
+      const fighter = shuffled[index]
+      result.push(_.startCase(fighter))
+      msg.channel.send(
+        `https://dba.bn-ent.net/character/images/select_${fighter}_off.png`
+      )
+      if (index === 2) {
+        result.push('`VS`')
+        msg.channel.send('`VS`')
+      }
     }
+
+    msg.channel.send(result.join(', '))
   }
 })
 
