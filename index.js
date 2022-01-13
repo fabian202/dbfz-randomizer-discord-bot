@@ -12,32 +12,33 @@ const characters = [
   'goku-SS',
   'vegeta-SS',
   'trunks',
-  'gohan-y',
+  'teen-gohan',
   'freeza',
-  'majinBoo-z',
+  'fat-boo',
   'cell',
-  'kuririn',
+  // 'kuririn',
   'piccolo',
   'no16',
   'no18',
-  'gokuSsgss',
-  'vegetaSsgss',
+  'goku-blue',
+  'vegeta-blue',
   'yamcha',
   'tenshinhan',
   'nappa',
   'ginyu',
   'gotenks',
   'gohan',
-  'majinBoo',
+  'kidBoo',
+  // 'majinBoo',
   'beerus',
   'hit',
-  'gokubl',
+  'gokuBlack',
   'no21',
   'barduck',
-  'broly',
+  'broly-z',
   'zamasu',
   'vegetto',
-  'goku',
+  'base-goku',
   'vegeta',
   'cooler',
   'no17',
@@ -45,8 +46,8 @@ const characters = [
   'videl',
   'goku-gt',
   'janemba',
-  'gogeta',
-  'broly-dbs',
+  'gogeta-blue',
+  'broly-super',
   'kefla',
   'goku-ui',
   'masterroshi',
@@ -62,17 +63,20 @@ client.on('messageCreate', (msg) => {
   if (msg.content === '!team') {
     const shuffled = getShuffledArr(characters)
     const result = []
+    let tail = shuffled.length
     //msg.channel.send('![Discord Logo](https://discord.com/assets/fc0b01fe10a0b8c602fb0106d8189d9b.png =200x100)')
     for (let index = 0; index < 6; index++) {
-      const fighter = shuffled[index]
+      const ix = index % 2 === 0 ? index : tail
+      const fighter = shuffled[ix]
       result.push(`**${_.startCase(fighter)}**`)
-      msg.channel.send(
-        `https://dba.bn-ent.net/character/images/select_${fighter}_off.png`
-      )
+      // msg.channel.send(
+      //   `https://dba.bn-ent.net/character/images/select_${fighter}_off.png`
+      // )
       if (index === 2) {
         result.push('*`VS`*')
-        msg.channel.send('`VS`')
+        // msg.channel.send('`VS`')
       }
+      tail--
     }
 
     msg.channel.send(`> :boom: ${result.join(', ')} :boom:`)
